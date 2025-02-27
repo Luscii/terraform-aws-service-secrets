@@ -45,5 +45,5 @@ jobs:
           # This will add both a CLI output to the console and create a results.sarif file
           output_format: cli
           output_file_path: console
-          config_file: ./${{inputs.terraform_directory}}/.checkov-config.yml
+          config_file: ${{inputs.terraform_directory}}/.checkov-config.yml
           directory: ${{inputs.terraform_directory}}
