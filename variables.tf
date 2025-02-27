@@ -53,12 +53,13 @@ variable "path_delimiter" {
 
 variable "kms_key_id" {
   type        = string
-  description = "ARN or Id of the AWS KMS key to be used to encrypt the secret values in the versions stored in this secret. If you need to reference a CMK in a different account, you can use only the key ARN."
+  description = "KMS Key identifier to be used to encrypt the secret values in the versions stored in this secret. Can be in any of the formats: Key ID, Key ARN, Alias Name, Alias ARN"
 }
 
 variable "secrets" {
   type = map(object({
     value          = optional(string)
+    description    = optional(string)
     value_from_arn = optional(string)
   }))
   sensitive   = true
