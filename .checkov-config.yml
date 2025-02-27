@@ -25,4 +25,6 @@ skip-check:
 - CKV_AWS_333
 # Disabled CKV2_GHA_1 as we want top level write permissions at the moment
 - CKV2_GHA_1
+# Disabled CKV2_AWS_57 as we don't want to require automatic rotation of secrets in this module
+- CKV2_AWS_57
 summary-position: top

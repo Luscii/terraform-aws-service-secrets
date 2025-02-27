@@ -17,7 +17,6 @@ module "secret_path" {
   attributes = [each.key]
 }
 
-# checkov:skip=CKV2_AWS_57: Automatic rotation is not required for the purpose of this module (at the moment)
 resource "aws_secretsmanager_secret" "secrets" {
   for_each = local.secrets_to_create_keys_set
 
