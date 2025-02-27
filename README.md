@@ -3,27 +3,27 @@ Module to handle secrets for AWS (ECS) services
 
 ## Configuration
 <!-- BEGIN_TF_DOCS -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.9 |
 
-## Providers
+### Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.88.0 |
 
-## Modules
+### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_path"></a> [path](#module\_path) | cloudposse/label/null | 0.25.0 |
 | <a name="module_secret_path"></a> [secret\_path](#module\_secret\_path) | cloudposse/label/null | 0.25.0 |
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
@@ -31,7 +31,7 @@ Module to handle secrets for AWS (ECS) services
 | [aws_secretsmanager_secret_version.secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [aws_secretsmanager_secret.existing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -41,7 +41,7 @@ Module to handle secrets for AWS (ECS) services
 | <a name="input_path_tags"></a> [path\_tags](#input\_path\_tags) | Additional tags for appending to the context and label tags for the path | `map(string)` | `{}` | no |
 | <a name="input_secrets"></a> [secrets](#input\_secrets) | Map of secrets, each key will be the name. When the value is set, a secret is created. Otherwise the arn of existing secret is added to the outputs. | <pre>map(object({<br/>    value          = optional(string)<br/>    value_from_arn = optional(string)<br/>  }))</pre> | n/a | yes |
 
-## Outputs
+### Outputs
 
 | Name | Description |
 |------|-------------|
