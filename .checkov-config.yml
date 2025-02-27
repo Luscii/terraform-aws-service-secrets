@@ -23,4 +23,6 @@ skip-check:
 # Disabled CKV_AWS_333 as we are currently running our services in a public subnet and in order to retrieve secrets & docker images we need a Public IP
 # https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-333
 - CKV_AWS_333
+# Disabled CKV2_GHA_1 as we want top level write permissions at the moment
+- CKV2_GHA_1
 summary-position: top
