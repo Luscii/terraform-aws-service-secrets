@@ -72,8 +72,8 @@ variable "secrets" {
     error_message = "value or value_from_arn must be set for each secret"
   }
   validation {
-    condition = !anytrue([
-      for key, value in var.secrets : (contains(keys(value), "value") && contains(keys(value), "value_from_arn"))
+    condition = anytrue([
+      for key, value in var.secrets : !(contains(keys(value), "value") && contains(keys(value), "value_from_arn"))
     ])
     error_message = "value and value_from_arn cannot be set at the same time"
   }
