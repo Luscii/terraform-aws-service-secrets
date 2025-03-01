@@ -4,7 +4,7 @@ locals {
     if contains(keys(value), "value_from_arn")
   }
 
-  existing_secrets_keys_set = toset(keys(local.existing_secrets))
+  existing_secrets_keys_set = nonsensitive(toset(keys(local.existing_secrets)))
 }
 
 data "aws_secretsmanager_secret" "existing" {
