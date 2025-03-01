@@ -15,6 +15,11 @@ output "secrets" {
   description = "Map of secrets, each key is the name, the value is the secret resource"
 }
 
+output "secret_version_ids" {
+  value       = { for key, secret in aws_secretsmanager_secret_version.secrets : key => secret.version_id }
+  description = "Map of secret version IDs, each key is the name, the value is the secret version ID"
+}
+
 output "arns" {
   value       = local.secret_arns
   description = "List of ARNs of the secrets - to use in IAM policies"
