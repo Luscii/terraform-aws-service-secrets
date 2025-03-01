@@ -73,7 +73,7 @@ variable "secrets" {
   }
   validation {
     condition = anytrue([
-      for key, value in var.secrets : alltrue([contains(keys(value), "value"), contains(keys(value), "value_from_arn")]) == false
+      for key, value in var.secrets : value.value != null && value.value_from_arn != null ? false : true
     ])
     error_message = "value and value_from_arn cannot be set at the same time"
   }
