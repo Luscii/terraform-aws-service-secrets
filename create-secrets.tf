@@ -3,8 +3,7 @@ locals {
     for key, value in var.secrets : key => value
     if contains(keys(value), "value")
   }
-  secrets_to_create_keys_set = toset(keys(local.secrets_to_create))
-
+  secrets_to_create_keys_set = nonsensitive(toset(keys(local.secrets_to_create)))
 }
 
 module "secret_path" {
