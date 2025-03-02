@@ -107,5 +107,6 @@ module "container_definition" {
 | <a name="output_container_definition"></a> [container\_definition](#output\_container\_definition) | List of secrets maps in the format: { name = <name>, valueFrom = <arn> } - to use in container definitions |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | ARN of the KMS key used to encrypt the secret values |
 | <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | ID of the KMS key used to encrypt the secret values |
+| <a name="output_secret_version_ids"></a> [secret\_version\_ids](#output\_secret\_version\_ids) | Map of secret version IDs, each key is the name, the value is the secret version ID |
 | <a name="output_secrets"></a> [secrets](#output\_secrets) | Map of secrets, each key is the name, the value is the secret resource |
 <!-- END_TF_DOCS -->
