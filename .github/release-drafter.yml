@@ -10,7 +10,6 @@ template: |
 
 prerelease: false
 latest: "true"
-include-pre-releases: true
 
 version-resolver:
   major:
