@@ -71,7 +71,7 @@ module "container_definition" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.88.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.90.0 |
 
 ### Modules
 
