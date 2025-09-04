@@ -84,3 +84,16 @@ variable "path_tags" {
   default     = {}
   description = "Additional tags for appending to the context and label tags for the path"
 }
+
+variable "parameters" {
+  type = map(
+    object({
+      data_type      = optional(string, "text")
+      description    = optional(string)
+      sensitive      = optional(bool, false)
+      tier           = optional(string, "Advanced")
+      value          = optional(string)
+      value_from_arn = optional(string)
+    })
+  )
+}
