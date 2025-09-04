@@ -71,11 +71,21 @@ variable "secrets" {
     ])
     error_message = "value or value_from_arn must be set for each secret"
   }
+
   validation {
-    condition = anytrue([
+    condition = alltrue([
       for key, value in var.secrets : value.value != null && value.value_from_arn != null ? false : true
     ])
     error_message = "value and value_from_arn cannot be set at the same time"
+  }
+
+  validation {
+    condition = alltrue([
+      for key, value in var.secrets :
+      value.value_from_arn == null ||
+      length(regexall("^arn:aws:secretsmanager:[a-zA-Z0-9-]+:[0-9]{12}:secret:[a-zA-Z0-9-_/]+-[a-zA-Z0-9]{6}$", value.value_from_arn)) > 0
+    ])
+    error_message = "The value_from_arn must be a valid Secrets Manager ARN with format: arn:aws:secretsmanager:region:account-id:secret:secret-name-suffix"
   }
 }
 
@@ -97,4 +107,27 @@ variable "parameters" {
     })
   )
   description = "Map of parameters, each key will be the name. When the value is set, a parameter is created. Otherwise the arn of existing parameter is added to the outputs."
+
+  validation {
+    condition = alltrue([
+      for key, value in var.parameters : (value.value != null) || (value.value_from_arn != null)
+    ])
+    error_message = "Either value or value_from_arn must be set for each parameter"
+  }
+
+  validation {
+    condition = alltrue([
+      for key, value in var.parameters : (value.value != null && value.value_from_arn != null) ? false : true
+    ])
+    error_message = "value and value_from_arn cannot be set at the same time for a parameter"
+  }
+
+  validation {
+    condition = alltrue([
+      for key, value in var.parameters :
+      value.value_from_arn == null ||
+      length(regexall("^arn:aws:ssm:[a-zA-Z0-9-]+:[0-9]{12}:parameter/[a-zA-Z0-9-_/]+$", value.value_from_arn)) > 0
+    ])
+    error_message = "The value_from_arn must be a valid SSM parameter ARN with format: arn:aws:ssm:region:account-id:parameter/parameter-name"
+  }
 }
