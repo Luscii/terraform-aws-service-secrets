@@ -107,6 +107,7 @@ variable "parameters" {
     })
   )
   description = "Map of parameters, each key will be the name. When the value is set, a parameter is created. Otherwise the arn of existing parameter is added to the outputs."
+  default     = {}
 
   validation {
     condition = alltrue([
