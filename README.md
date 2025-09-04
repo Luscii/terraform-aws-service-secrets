@@ -18,6 +18,16 @@ module "service_secrets" {
       description    = "Secret that has already been set can also be reused"
     }
   }
+  parameters = {
+    param = {
+      value = "foo"
+      description = "System parameter"
+    },
+    set_param = {
+      value_from_arn = "arn:aws:ssm:region:account-id:parameter/parameter-name"
+      description = "Parameter that has already been set can also be reused"
+    }
+  }
 }
 
 resource "aws_iam_role_policy" "execution" {
