@@ -13,6 +13,11 @@ output "secret_arns" {
   description = "List of ARNs of the secrets - to use in IAM policies"
 }
 
+output "params" {
+  value       = local.params
+  description = "Map of SSM parameters, each key is the name, the value is the parameter resource"
+}
+
 output "param_arns" {
   value       = local.param_arns
   description = "List of ARNs of the SSM parameters - to use in IAM policies"

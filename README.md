@@ -66,7 +66,7 @@ module "container_definition" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.8.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.11.0 |
 
 ### Modules
 
@@ -113,6 +113,7 @@ module "container_definition" {
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | ARN of the KMS key used to encrypt the secret values |
 | <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | ID of the KMS key used to encrypt the secret values |
 | <a name="output_param_arns"></a> [param\_arns](#output\_param\_arns) | List of ARNs of the SSM parameters - to use in IAM policies |
+| <a name="output_params"></a> [params](#output\_params) | Map of SSM parameters, each key is the name, the value is the parameter resource |
 | <a name="output_params_container_definition"></a> [params\_container\_definition](#output\_params\_container\_definition) | List of SSM Parameter maps in the format: { name = <name>, valueFrom = <arn> } - to use in container definitions |
 | <a name="output_params_iam_policy_document"></a> [params\_iam\_policy\_document](#output\_params\_iam\_policy\_document) | IAM policy document containing permissions for accessing the defined SSM parameters - to use in the Task Execution role |
 | <a name="output_secret_arns"></a> [secret\_arns](#output\_secret\_arns) | List of ARNs of the secrets - to use in IAM policies |
