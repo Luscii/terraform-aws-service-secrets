@@ -130,4 +130,20 @@ variable "parameters" {
     ])
     error_message = "The value_from_arn must be a valid SSM parameter ARN with format: arn:aws:ssm:region:account-id:parameter/parameter-name"
   }
+
+  validation {
+    condition = alltrue([
+      for key, value in var.parameters :
+      contains(["text", "aws:ec2:image", "aws:ssm:integration"], value.data_type)
+    ])
+    error_message = "data_type must be one of: text, aws:ec2:image, aws:ssm:integration"
+  }
+
+  validation {
+    condition = alltrue([
+      for key, value in var.parameters :
+      contains(["Standard", "Advanced", "Intelligent-Tiering"], value.tier)
+    ])
+    error_message = "tier must be one of: Standard, Advanced, Intelligent-Tiering"
+  }
 }
