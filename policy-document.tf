@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "secrets_access" {
   }
 
   statement {
-    sid    = join("", [module.base_id.id, "KmsDecrypt"])
+    sid    = join("", [module.base_id.id, "SecretsKmsDecrypt"])
     effect = "Allow"
 
     actions = [
@@ -26,9 +26,7 @@ data "aws_iam_policy_document" "secrets_access" {
       "kms:GenerateDataKey"
     ]
 
-    resources = [
-      data.aws_kms_key.kms_key.arn
-    ]
+    resources = data.aws_kms_key.secrets[*].arn
   }
 }
 
@@ -52,7 +50,7 @@ data "aws_iam_policy_document" "params_access" {
     for_each = contains(var.parameters[*].sensitive, true) ? { kms = "kms" } : {}
 
     content {
-      sid    = join("", [module.base_id.id, "KmsDecrypt"])
+      sid    = join("", [module.base_id.id, "ParamsKmsDecrypt"])
       effect = "Allow"
 
       actions = [
