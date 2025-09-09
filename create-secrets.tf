@@ -1,7 +1,7 @@
 locals {
   secrets_to_create = {
     for key, value in var.secrets : key => value
-    if value.value_from_arn == null
+    if value.value != null
   }
   secrets_to_create_keys_set = nonsensitive(toset(keys(local.secrets_to_create)))
 }
