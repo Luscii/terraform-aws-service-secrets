@@ -57,4 +57,21 @@ resource "aws_ssm_parameter" "param" {
   data_type   = local.params_to_create[each.key].data_type
 
   tags = module.param_path[each.key].tags
+
+  lifecycle {
+    precondition {
+      # Only enforce KMS key requirement if we are actually creating parameters with SecureString type
+      condition = (
+        # When it is a "aws:ssm:integration" data_type, no KMS key is needed
+        local.params_to_create[each.key].data_type == "aws:ssm:integration" ? true : (
+          # If it is not a SecureString, then it is OK
+          local.param_types[each.key] != "SecureString" ? true : (
+            # If it is a SecureString, then a KMS key must be present
+            var.kms_key_id != null && var.kms_key_id != "" ? true : false
+          )
+        )
+      )
+      error_message = "KMS key is required for SecureString parameters, except for parameters with data_type = \"aws:ssm:integration\". Set `kms_key_id` or change parameter type to String."
+    }
+  }
 }
