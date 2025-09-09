@@ -14,6 +14,10 @@ module "param_path" {
 
   context    = module.path.context
   attributes = [each.key]
+  # The maximum length for a parameter name that you specify is 1011 characters.
+  # This count of 1011 characters includes the characters in the ARN that precede the name you specify.
+  # therefore we set a limit to the id length to avoid issues with long names
+  id_length_limit = 900
 }
 
 locals {
@@ -25,7 +29,7 @@ locals {
     for key, value in local.params_to_create : key => (
       value.data_type == "aws:ssm:integration"
       ? "${local.webhook_integration_prefix}${key}"
-      : module.param_path[key].id
+      : "/${module.param_path[key].id}"
     )
   }
 
