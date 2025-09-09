@@ -47,7 +47,7 @@ data "aws_iam_policy_document" "params_access" {
   }
 
   dynamic "statement" {
-    for_each = contains(var.parameters[*].sensitive, true) ? { kms = "kms" } : {}
+    for_each = length([for k, v in var.parameters : v.sensitive if v.sensitive == true]) > 0 ? { kms = "kms" } : {}
 
     content {
       sid    = join("", [module.base_id.id, "ParamsKmsDecrypt"])

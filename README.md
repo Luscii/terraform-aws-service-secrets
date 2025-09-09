@@ -112,13 +112,13 @@ module "container_definition" {
 | <a name="output_iam_policy_document"></a> [iam\_policy\_document](#output\_iam\_policy\_document) | IAM policy document containing permissions for accessing the defined secrets and SSM parameters - to use in the Task Execution role |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | ARN of the KMS key used to encrypt the secret values, if provided |
 | <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | ID of the KMS key used to encrypt the secret values, if provided |
-| <a name="output_parameters"></a> [parameters](#output\_parameters) | Map of SSM parameters, each key is the name, the value is the parameter resource |
+| <a name="output_parameters"></a> [parameters](#output\_parameters) | Map of SSM parameters, each key is the name, the value is the parameter resource metadata (excluding parameter values) |
 | <a name="output_parameters_arns"></a> [parameters\_arns](#output\_parameters\_arns) | List of ARNs of the SSM parameters - to use in IAM policies |
 | <a name="output_parameters_iam_policy_document"></a> [parameters\_iam\_policy\_document](#output\_parameters\_iam\_policy\_document) | IAM policy document containing permissions for accessing the defined SSM parameters - to use in the Task Execution role |
 | <a name="output_params_container_definition"></a> [params\_container\_definition](#output\_params\_container\_definition) | List of SSM Parameter maps in the format: { name = <name>, valueFrom = <arn> } - to use in container definitions |
 | <a name="output_secret_arns"></a> [secret\_arns](#output\_secret\_arns) | List of ARNs of the secrets - to use in IAM policies |
 | <a name="output_secret_version_ids"></a> [secret\_version\_ids](#output\_secret\_version\_ids) | Map of secret version IDs, each key is the name, the value is the secret version ID |
-| <a name="output_secrets"></a> [secrets](#output\_secrets) | Map of secrets, each key is the name, the value is the secret resource |
+| <a name="output_secrets"></a> [secrets](#output\_secrets) | Map of secrets, each key is the name, the value is the secret resource metadata (excluding secret values) |
 | <a name="output_secrets_container_definition"></a> [secrets\_container\_definition](#output\_secrets\_container\_definition) | List of secrets maps in the format: { name = <name>, valueFrom = <arn> } - to use in container definitions |
 | <a name="output_secrets_iam_policy_document"></a> [secrets\_iam\_policy\_document](#output\_secrets\_iam\_policy\_document) | IAM policy document containing permissions for accessing the defined secrets - to use in the Task Execution role |
 <!-- END_TF_DOCS -->

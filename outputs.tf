@@ -1,6 +1,13 @@
 output "secrets" {
-  value       = local.secrets
-  description = "Map of secrets, each key is the name, the value is the secret resource"
+  value = {
+    for key, secret in local.secrets : key => {
+      arn         = secret.arn
+      id          = secret.id
+      name        = secret.name
+      description = secret.description
+    }
+  }
+  description = "Map of secrets, each key is the name, the value is the secret resource metadata (excluding secret values)"
 }
 
 output "secret_version_ids" {
@@ -14,8 +21,19 @@ output "secret_arns" {
 }
 
 output "parameters" {
-  value       = local.params
-  description = "Map of SSM parameters, each key is the name, the value is the parameter resource"
+  value = {
+    for key, param in local.params : key => {
+      arn         = param.arn
+      id          = param.id
+      name        = param.name
+      description = param.description
+      type        = param.type
+      data_type   = param.data_type
+      version     = param.version
+
+    }
+  }
+  description = "Map of SSM parameters, each key is the name, the value is the parameter resource metadata (excluding parameter values)"
 }
 
 output "parameters_arns" {
