@@ -41,7 +41,7 @@ locals {
     for key, value in local.params_to_create : key => (
       value.data_type == "aws:ssm:integration"
       ? null
-      : (value.sensitive ? data.aws_kms_key.kms_key.arn : null)
+      : (value.sensitive && length(data.aws_kms_key.kms_key) > 0 ? data.aws_kms_key.kms_key[0].arn : null)
     )
   }
 }

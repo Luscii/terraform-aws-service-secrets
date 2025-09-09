@@ -58,9 +58,9 @@ data "aws_iam_policy_document" "params_access" {
         "kms:GenerateDataKey"
       ]
 
-      resources = [
-        data.aws_kms_key.kms_key.arn
-      ]
+      resources = length(data.aws_kms_key.kms_key) > 0 ? [
+        data.aws_kms_key.kms_key[0].arn
+      ] : []
     }
   }
 }
