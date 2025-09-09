@@ -54,6 +54,7 @@ variable "path_delimiter" {
 variable "kms_key_id" {
   type        = string
   description = "KMS Key identifier to be used to encrypt the secret values in the versions stored in this secret. Can be in any of the formats: Key ID, Key ARN, Alias Name, Alias ARN"
+  default     = null
 }
 
 variable "secrets" {
@@ -64,6 +65,7 @@ variable "secrets" {
   }))
   sensitive   = true
   description = "Map of secrets, each key will be the name. When the value is set, a secret is created. Otherwise the arn of existing secret is added to the outputs."
+  default     = {}
 
   validation {
     condition = alltrue([
@@ -82,7 +84,7 @@ variable "secrets" {
   validation {
     condition = alltrue([
       for key, value in var.secrets :
-      value.value_from_arn == null ||
+      value.value_from_arn == null ? true :
       length(regexall("^arn:aws:secretsmanager:[a-zA-Z0-9-]+:[0-9]{12}:secret:[a-zA-Z0-9-_/]+-[a-zA-Z0-9]{6}$", value.value_from_arn)) > 0
     ])
     error_message = "The value_from_arn must be a valid Secrets Manager ARN with format: arn:aws:secretsmanager:region:account-id:secret:secret-name-suffix"
@@ -126,7 +128,7 @@ variable "parameters" {
   validation {
     condition = alltrue([
       for key, value in var.parameters :
-      value.value_from_arn == null ||
+      value.value_from_arn == null ? true :
       length(regexall("^arn:aws:ssm:[a-zA-Z0-9-]+:[0-9]{12}:parameter/[a-zA-Z0-9-_/]+$", value.value_from_arn)) > 0
     ])
     error_message = "The value_from_arn must be a valid SSM parameter ARN with format: arn:aws:ssm:region:account-id:parameter/parameter-name"

@@ -13,12 +13,12 @@ output "secret_arns" {
   description = "List of ARNs of the secrets - to use in IAM policies"
 }
 
-output "params" {
+output "parameters" {
   value       = local.params
   description = "Map of SSM parameters, each key is the name, the value is the parameter resource"
 }
 
-output "param_arns" {
+output "parameters_arns" {
   value       = local.param_arns
   description = "List of ARNs of the SSM parameters - to use in IAM policies"
 }
@@ -48,7 +48,7 @@ output "secrets_iam_policy_document" {
   description = "IAM policy document containing permissions for accessing the defined secrets - to use in the Task Execution role"
 }
 
-output "params_iam_policy_document" {
+output "parameters_iam_policy_document" {
   value       = try(data.aws_iam_policy_document.params_access[0].json, null)
   description = "IAM policy document containing permissions for accessing the defined SSM parameters - to use in the Task Execution role"
 }
@@ -59,11 +59,11 @@ output "iam_policy_document" {
 }
 
 output "kms_key_arn" {
-  value       = data.aws_kms_key.kms_key.arn
-  description = "ARN of the KMS key used to encrypt the secret values"
+  value       = length(data.aws_kms_key.kms_key) > 0 ? data.aws_kms_key.kms_key[0].arn : null
+  description = "ARN of the KMS key used to encrypt the secret values, if provided"
 }
 
 output "kms_key_id" {
-  value       = data.aws_kms_key.kms_key.key_id
-  description = "ID of the KMS key used to encrypt the secret values"
+  value       = length(data.aws_kms_key.kms_key) > 0 ? data.aws_kms_key.kms_key[0].key_id : null
+  description = "ID of the KMS key used to encrypt the secret values, if provided"
 }
