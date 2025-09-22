@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "secrets_access" {
       "kms:GenerateDataKey"
     ]
 
-    resources = data.aws_kms_key.secrets[*].arn
+    resources = [for k in data.aws_kms_key.secrets : k.arn]
   }
 }
 
