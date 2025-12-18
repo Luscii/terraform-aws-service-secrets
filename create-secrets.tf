@@ -25,6 +25,7 @@ locals {
 }
 
 resource "aws_secretsmanager_secret" "secrets" {
+  #checkov:skip=CKV2_AWS_57: Currently the module doesn't support rotation of secrets and this is not required at the moment for usage within Luscii.
   for_each = toset(local.secrets_to_actually_create)
 
   name        = module.secret_path[each.key].id
