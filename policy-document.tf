@@ -34,7 +34,7 @@ data "aws_iam_policy_document" "params_access" {
   count = local.has_params ? 1 : 0
 
   statement {
-    sid    = join("", [module.base_id.id, "ParamsAccess"])
+    sid    = replace(join("", [module.base_id.id, "ParamsAccess"]), "/[^a-zA-Z0-9]/", "")
     effect = "Allow"
 
     actions = [
@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "params_access" {
     for_each = length([for k, v in var.parameters : v.sensitive if v.sensitive == true]) > 0 ? { kms = "kms" } : {}
 
     content {
-      sid    = join("", [module.base_id.id, "ParamsKmsDecrypt"])
+      sid    = replace(join("", [module.base_id.id, "ParamsKmsDecrypt"]), "/[^a-zA-Z0-9]/", "")
       effect = "Allow"
 
       actions = [
