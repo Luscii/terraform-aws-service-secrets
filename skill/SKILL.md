@@ -1,5 +1,5 @@
 ---
-name: using-service-secrets
+name: luscii-service-secrets
 description: 'Guides usage of the terraform-aws-service-secrets module for managing AWS Secrets Manager secrets and SSM Parameters consumed by ECS services. Use when asked to "add a secret", "add a parameter", "configure secrets", "use service-secrets module", "ECS secrets", "SSM parameters", or working with this Terraform module.'
 ---
 
