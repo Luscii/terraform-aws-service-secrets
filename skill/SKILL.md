@@ -38,6 +38,16 @@ module "service_secrets" {
 
 The `context` variable drives naming and tagging via CloudPosse label modules. The generated path becomes the prefix for all secret and parameter names (e.g., `/<namespace>/<environment>/<name>/<secret-key>`).
 
+**`module.this` in these examples is whatever the calling configuration named its CloudPosse
+label module.** `module.this` is the CloudPosse convention, but consumers do not always follow
+it. In `Luscii/supporting-service-template` it is declared as `module "label"` in
+`infrastructure/main.tf`, so there the line reads `context = module.label.context`. Substitute
+your own; copying `module.this` verbatim into a repo that has no such module fails to resolve.
+
+**`context` is not optional in practice.** Omitting it drops the `<project>/` prefix from the
+generated secret names, which breaks any KMS key policy that scopes the deploy role to that
+project's secrets, as the supporting-service template's does.
+
 ### Step 2: Set Up KMS Key
 
 ```hcl
@@ -133,7 +143,23 @@ module "container_definition" {
 }
 ```
 
-The `container_definition` output is a list of `{ name, valueFrom }` maps where `name` is the map key (uppercased by ECS as environment variable name) and `valueFrom` is the ARN.
+The `container_definition` output is a list of `{ name, valueFrom }` maps where `name` is the
+map key **exactly as written** and `valueFrom` is the ARN. See `container-definition.tf`:
+the key is passed through with `name = key`.
+
+**Nothing uppercases it.** A key of `slack_bot_token` reaches your container as the
+environment variable `slack_bot_token`, not `SLACK_BOT_TOKEN`. Either name your map keys the
+way your app expects them, or map them explicitly instead of using the bundled output:
+
+```hcl
+  secrets = [
+    { name = "SLACK_BOT_TOKEN", valueFrom = module.service_secrets.secrets["slack_bot_token"].arn },
+  ]
+```
+
+This is worth getting right first time: the task starts successfully and simply behaves as
+though it has no credentials, which is a slow thing to diagnose when container logging is
+disabled.
 
 For all available outputs, see [references/outputs.md](references/outputs.md).
 
